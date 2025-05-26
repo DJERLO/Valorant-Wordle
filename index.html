@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Valorant Wordle Game</title>
+</head>
+
+<body onload="showGameMenu();">
+
+  <div class="game-content no-user-select">
+
+    <!--Game Menu Splash Screen-->
+    <div class="menuContainer">
+      <h1>Valorant Wordle</h1>
+      <button onclick="hideGameMenu()">Start!</button>
+      <button onclick="showRules()">How to Play?</button>
+    </div>
+
+    <!--Rules Content Modal if the player clicks the How to Play-->
+    <div class="rules-container">
+      <div class="cancel">
+        <h2>How to Play</h2>
+        <button onclick="hideRules()">X</button>
+      </div>
+
+      <ol>
+        <li>The Game willstart on random agents names, and try to guest them based on their abilities in the game
+          Valorant</li>
+        <li>You only try to guest under 3 attempts</li>
+        <li>After the gfame ends the answer will reveal in the end</li>
+      </ol>
+      <p>Have Fun Playing</p>
+    </div>
+
+    <!--Wordle Content-->
+    <div class="game-container">
+      <h1>Valorant Wordle Game</h1>
+      <p>Guess the word! It has <span id="word-length">5</span> letters.</p>
+      <div class="word-container">
+        <p id="clue"></p>
+        <p id="word"></p>
+      </div>
+      <p>Enter your Guess and press Enter Key to Submit</p>
+      <input type="text" id="guess" autocomplete="off" disabled>
+      <p id="attempts"></p>
+      <p id="already-selected"></p>
+    </div>
+
+    <!--Guess the Word Correctly (This shows up)-->
+    <div class="splash-victory">
+      <div class="splash-title">
+        <h2>Congratulations!</h2>
+        <p id="result">...</p>
+        <blockquote>Would you like to try again?!</blockquote>
+        <button onclick="resetGame()">Yes</button>
+      </div>
+    </div>
+
+    <!--Game Over Screen and Play Again Content-->
+    <div class="splash-game-over">
+      <div class="splash-title">
+        <h2>Game Over</h2>
+        <p id="result-game-over"></p>
+        <blockquote>Would you like to try again?!</blockquote>
+        <button onclick="resetGame()">Yes</button>
+      </div>
+    </div>
+
+  </div>
+  <script src="js/script.js"></script>
+  <script src="js/action.js"></script>
+  <script src="js/sound.js"></script>
+</body>
+
+</html>

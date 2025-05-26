@@ -1,0 +1,178 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+html, body {
+  height: 100%;
+  margin: 0; /* Remove default body margin */
+  padding: 0; /* Remove default body padding */
+  overflow: hidden;
+  
+}
+
+.no-user-select {
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+}
+
+.game-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  padding: 20px; /* Adding padding for better spacing */
+  box-sizing: border-box; /* Ensuring padding is included in the height */
+}
+
+/* Style for the menu container */
+.menuContainer {
+  display: none;
+  text-align: center;
+  flex-direction: column;
+}
+
+/* Optional styles for the buttons and header */
+.menuContainer h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.menuContainer button, button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  margin: 5px;
+  flex-direction: row;
+}
+
+.menuContainer button, button:hover{
+  padding: 10px 20px;
+  margin: 5px;
+  background-color: #33db4f;
+  color: #fff;
+  border: 1px solid #282e29 ;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Apply these styles to the modal container */
+.rules-container {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  max-height: 800px;
+  width: 90%; /* Adjust this value for smaller screens */
+  height: auto;
+  overflow: auto;
+  background: #fff;
+  padding: 20px;
+  border: 2px solid #000;
+  z-index: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+/* Style for the close button */
+.rules-container button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+/* Additional styles for the content inside the modal */
+.rules-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.rules-container ol {
+  margin-bottom: 15px;
+}
+
+.rules-container p {
+  font-style: italic;
+  text-align: center;
+}
+
+.game-container{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-basis: content;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.word-container{
+  display: grid;
+  place-items: center;
+  flex-direction: column;
+}
+
+.splash-victory{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.splash-title{
+  display: grid;
+  place-items: center;
+}
+
+.splash-game-over{
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Styles for the input field */
+#guess {
+  text-align: center;
+  font-weight: bolder;
+  width: 80px; 
+  height: 80px; 
+  font-size: 5rem; 
+}
+
+#word{
+  font-size: 1.5rem;
+}
+
+/* Enlarging the displayed blank words on larger screens */
+@media screen and (min-width: 1600px) {
+  /* Adjust font size for screens wider than 1600px */
+  #word p {
+    font-size: 4rem; /* Increase font size for larger screens */
+  }
+}
+
+/* Responsive adjustments for different screen sizes */
+@media screen and (min-width: 768px) {
+  /* Adjustments for screens wider than 768px */
+  .game-content {
+    max-width: 800px; /* Limit the content width */
+    margin: 0 auto; /* Center content on larger screens */
+  }
+}
+
+
+/* Adjust the font size and spacing for the word display */
+#word p {
+  text-align: center;
+  letter-spacing: 8px; /* Adjust letter spacing for better visibility */
+  font-size: 3rem; /* Responsive font size */
+}
