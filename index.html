@@ -13,14 +13,14 @@
   <div class="game-content no-user-select">
 
     <!--Game Menu Splash Screen-->
-    <div class="menuContainer">
+    <div class="menuContainer" style="flex-direction: column;">
       <h1>Valorant Wordle</h1>
       <button onclick="hideGameMenu()">Start!</button>
       <button onclick="showRules()">How to Play?</button>
     </div>
 
     <!--Rules Content Modal if the player clicks the How to Play-->
-    <div class="rules-container">
+    <div class="rules-container" style="flex-direction: column;">
       <div class="cancel">
         <h2>How to Play</h2>
         <button onclick="hideRules()">X</button>
@@ -53,6 +53,7 @@
     <div class="splash-victory">
       <div class="splash-title">
         <h2>Congratulations!</h2>
+        <img id="agent-win-icon" src="" alt="Agent Icon" style="pointer-events: none;" />
         <p id="result">...</p>
         <blockquote>Would you like to try again?!</blockquote>
         <button onclick="resetGame()">Yes</button>
@@ -63,6 +64,7 @@
     <div class="splash-game-over">
       <div class="splash-title">
         <h2>Game Over</h2>
+        <img id="agent-lost-icon" src="" alt="Agent Icon" style="pointer-events: none;" />
         <p id="result-game-over"></p>
         <blockquote>Would you like to try again?!</blockquote>
         <button onclick="resetGame()">Yes</button>

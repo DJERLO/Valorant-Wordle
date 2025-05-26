@@ -1,102 +1,4 @@
-const agents = [
-  {
-    "agent": "Jett",
-    "clues": [
-      "The opponent used an ability that allows them to dash through the air.",
-      "The opponent used an ultimate that rains down daggers from the sky.",
-      "The opponent played aggressively, often engaging in close-quarters combat."
-    ]
-  },
-  {
-    "agent": "Sova",
-    "clues": [
-      "The opponent used an ability that sends out a drone that reveals enemy locations.",
-      "The opponent used an ultimate that sends out a massive arrow that marks all enemies in its path.",
-      "The opponent played cautiously, using their abilities to gather information before engaging."
-    ]
-  },
-  {
-    "agent": "Cypher",
-    "clues": [
-      "The opponent used an ability that traps enemies in a cage.",
-      "The opponent used an ultimate that creates a zone where enemies cannot use their abilities.",
-      "The opponent played defensively, using their abilities to control the battlefield and prevent enemies from advancing."
-    ]
-  },
-  {
-    "agent": "Raze",
-    "clues": [
-      "The opponent used an ability that launches a rocket that can damage multiple enemies.",
-      "The opponent used an ultimate that deploys a boom bot that automatically seeks out and damages enemies.",
-      "The opponent played aggressively, using their abilities to clear out enemy positions and push through defenses."
-    ]
-  },
-  {
-    "agent": "Omen",
-    "clues": [
-      "The opponent used an ability that allows them to teleport to a specific location.",
-      "The opponent used an ultimate that sends out a wave that briefly teleports all enemies to a different location.",
-      "The opponent played strategically, using their abilities to gain the upper hand in positioning and surprise their opponents."
-    ]
-  },
-  {
-    "agent": "Breach",
-    "clues": [
-      "The opponent used an ability that creates seismic disruptions, dazing and knocking up enemies.",
-      "The opponent used an ultimate that sends out a powerful tremor, heavily dazing all enemies caught in its zone.",
-      "The opponent played as an initiator, focusing on stunning enemies and creating opportunities for their team."
-    ]
-  },
-  {
-    "agent": "Brimstone",
-    "clues": [
-      "The opponent used an ability that calls down smoke screens, incendiary, and orbital strikes.",
-      "The opponent used an ultimate that launches an orbital strike that deals damage to enemies caught in its area.",
-      "The opponent played as a controller, manipulating the battlefield through area denial and smokes."
-    ]
-  },
-  {
-    "agent": "Viper",
-    "clues": [
-      "The opponent used an ability that emits a toxic gas cloud, reducing the health of enemies within.",
-      "The opponent used an ultimate that emits a massive toxic cloud across the entire map.",
-      "The opponent played as a controller, using poison to control the battlefield and create advantages."
-    ]
-  },
-  {
-    "agent": "Skye",
-    "clues": [
-      "The opponent used an ability that allows her to summon wildlife to assist her in battle.",
-      "The opponent used an ultimate that calls upon a Seeker to seek out and nearsight enemies.",
-      "The opponent played as an initiator and support, providing healing and gathering information."
-    ]
-  },
-  {
-    "agent": "Killjoy",
-    "clues": [
-      "The opponent used an ability that deploys various gadgets to control areas and protect her team.",
-      "The opponent used an ultimate that detonates any deployed gadgets on the battlefield.",
-      "The opponent played as a sentinel, focusing on defending and locking down areas."
-    ]
-  },
-  {
-    "agent": "Phoenix",
-    "clues": [
-      "The opponent used an ability that creates a wall of fire blocking vision.",
-      "The opponent used an ultimate that resurrects him if he dies during its duration.",
-      "The opponent played as a duelist, having self-sustain and dealing high damage."
-    ]
-  },
-  {
-    "agent": "Astra",
-    "clues": [
-      "The opponent used an ability that deploys stars to control the battlefield.",
-      "The opponent used an ultimate that allows her to travel anywhere on the map and return to her star.",
-      "The opponent played as a controller, manipulating gravity and cosmic energy to her advantage."
-    ]
-  }
-]
-
+let agents = [];
 
 //UI contents
 let menu = document.querySelector(".menuContainer");
@@ -104,9 +6,70 @@ let rules = document.querySelector(".rules-container");
 let game = document.querySelector(".game-container");
 let victoryScreen = document.querySelector(".splash-victory");
 let gameOver = document.querySelector(".splash-game-over");
+let agentWinIcon = document.getElementById('agent-win-icon');
+let agentLoseIcon = document.getElementById('agent-lost-icon');
 
 //UI Commands/Fucntions
 let gameEnded = false;
+
+// Function to load agents from the API
+// This function fetches agents from the Valorant API and generates clues for each agent
+async function loadAgentsFromAPI() {
+  const response = await fetch('https://valorant-api.com/v1/agents?isPlayableCharacter=true');
+  const data = await response.json();
+  const agentData = data.data;
+
+  agents = agentData.map(agent => ({
+    agent: agent.displayName,
+    displayIcon: agent.displayIconSmall,
+    clues: generateClues(agent)
+  }));
+}
+
+// Function to generate clues for each agent
+function generateClues(agent) {
+  // Generating clues based on abilities and role, but excluding the agent's name
+  console.log(`Generating clues for agent: ${agent.displayName}`);
+  if (!agent.abilities || agent.abilities.length === 0) {
+    console.warn(`No abilities found for agent: ${agent.displayName}`);
+    return ["No clues available for this agent."];
+    
+  }
+
+  // Randomly pick an ability from the available ones
+  const randomAbility = getRandomAbility(agent.abilities);
+
+  // List of clues, including a random ability
+  const clues = [
+    `This character has the ability called '${randomAbility.displayName ?? 'Unknown'}'.`,
+    `The agent plays the role of ${agent.role?.displayName ?? 'an unknown role'}.`,
+    `This agent originates from ${agent.characterTags?.[0] ?? 'an unknown location'}.`
+  ];
+
+  // Shuffle the clues to randomize the order
+  return shuffleArray(clues);
+}
+
+// Function to set the agent icon based on the selected agent
+function setAgentIcon(agent) {
+    agentWinIcon.src = agent; // Set the icon source
+    agentLoseIcon.src = agent; // Set the icon source
+}
+
+// Helper function to shuffle an array
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+  }
+  return array;
+}
+
+// Helper function to pick a random ability from the available abilities
+function getRandomAbility(abilities) {
+  const randomIndex = Math.floor(Math.random() * abilities.length);
+  return abilities[randomIndex]; // Return a random ability
+}
 
 const showRules = () => {
   rules.style.display = "flex";
@@ -127,6 +90,7 @@ const hideGameMenu = () => {
 
 const showGamePanel = () => {
   game.style.display = 'flex';
+  document.getElementById('clue').innerText = agents.find(agent => agent.agent.toUpperCase() === wordToGuess).clues[3 - attempts]
   gameEnded = false;
 }
 
@@ -163,9 +127,20 @@ let guessInput = document.getElementById('guess');
 
 // Function to select a random word from agents array
 function selectRandomWord() {
+  if (agents.length === 0) {
+    console.error("Agents not loaded yet.");
+    return;
+  }
+
+  // Select a random agent from the agents array
   const randomAgent = agents[Math.floor(Math.random() * agents.length)];
   wordToGuess = randomAgent.agent.toUpperCase();
-  guessedLetters = []; // Reset guessed letters - just to make sure it resets
+  
+  // Set the agent icon based on the selected agent
+  const characterIcon = randomAgent.displayIcon;
+  setAgentIcon(characterIcon); // Set the agent icon for the game
+
+  guessedLetters = [];
   letters = wordToGuess.length;
   document.getElementById("word-length").innerText = letters;
   showGamePanel();
@@ -251,6 +226,11 @@ function resetGame() {
   document.getElementById('clue').innerText = '';
   selectRandomWord(); // Select a new word
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadAgentsFromAPI();
+});
+
 
 
 
