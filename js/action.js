@@ -20,7 +20,6 @@ function handleOnchange(input) {
   const pressedKey = input; // Get the pressed key
   // Check if the pressed key is a lowercase letter from 'a' to 'z'
   if (/^[a-z]$/.test(pressedKey) || pressedKey === '/' && !gameEnded) {
-    playDecide();
     currentLetter = pressedKey.toUpperCase(); // Convert to uppercase
     document.getElementById('guess').value = currentLetter; // Set the input field value to the current letter
   }
