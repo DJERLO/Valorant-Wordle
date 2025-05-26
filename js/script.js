@@ -21,15 +21,20 @@ async function loadAgentsFromAPI() {
 
   agents = agentData.map(agent => ({
     agent: agent.displayName,
+    description: filterClue(agent.description, agent.displayName),
     displayIcon: agent.displayIconSmall,
     clues: generateClues(agent)
   }));
 }
 
+function filterClue(description, agentName) {
+  const regex = new RegExp(agentName, 'gi'); // 'gi' = global + case-insensitive
+  return description.replace(regex, '[REDACTED]');
+}
+
 // Function to generate clues for each agent
 function generateClues(agent) {
   // Generating clues based on abilities and role, but excluding the agent's name
-  console.log(`Generating clues for agent: ${agent.displayName}`);
   if (!agent.abilities || agent.abilities.length === 0) {
     console.warn(`No abilities found for agent: ${agent.displayName}`);
     return ["No clues available for this agent."];
@@ -43,7 +48,9 @@ function generateClues(agent) {
   const clues = [
     `This character has the ability called '${randomAbility.displayName ?? 'Unknown'}'.`,
     `The agent plays the role of ${agent.role?.displayName ?? 'an unknown role'}.`,
-    `This agent originates from ${agent.characterTags?.[0] ?? 'an unknown location'}.`
+    `This agent's name starts with the letter '${agent.displayName.charAt(0).toUpperCase()}'.`,
+    `This agent is known for their ${agent.role?.displayName ?? 'unknown role'} abilities.`,
+    `${agent.description ? filterClue(agent.description, agent.displayName) : 'No description available.'}`
   ];
 
   // Shuffle the clues to randomize the order
