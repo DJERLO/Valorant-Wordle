@@ -96,8 +96,6 @@ const showGamePanel = () => {
   // Enable the input field for guessing letters (For mobile devices)
   const input = document.getElementById("guess");
   input.disabled = false;
-  input.focus(); // Show keyboard on phones
-
 }
 
 const hideGamePanel = () => {

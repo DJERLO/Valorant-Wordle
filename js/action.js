@@ -1,6 +1,6 @@
 let currentLetter = ''; // Variable to store the current letter entered
 
-// Add an event listener to the document to detect keydown events
+// Event listener for keydown to capture letter input and display it uppercase
 document.addEventListener('keydown', function(event) {
  
   const pressedKey = event.key; // Get the pressed key
@@ -14,6 +14,7 @@ document.addEventListener('keydown', function(event) {
   
 });
 
+// Event listener for the Enter key to submit the guess (with Physical Keyboard)
 document.addEventListener('keydown', function(event) {
   if (event.key === 'Enter') {
     // If the Enter key is pressed, trigger the checkGuess function with the currentLetter
@@ -22,3 +23,10 @@ document.addEventListener('keydown', function(event) {
     }
   }
 });
+
+// Submit the guess when the button is clicked (for mobile users)
+function submitGuess() {
+  if (currentLetter !== '') {
+    checkGuess(); // Submit the guess logic
+  }
+}
