@@ -14,19 +14,18 @@ document.addEventListener('keydown', function(event) {
   
 });
 
-// Event listener for keydown to capture letter input and display it uppercase
-document.addEventListener('input', function(event) {
+// Function For handling the input change event (for mobile users)
+function handleOnchange(event) {
  
   const pressedKey = event.key; // Get the pressed key
   // Check if the pressed key is a lowercase letter from 'a' to 'z'
   if (/^[a-z]$/.test(pressedKey) || pressedKey === '/' && !gameEnded) {
-    
     playDecide();
     currentLetter = pressedKey.toUpperCase(); // Convert to uppercase
     document.getElementById('guess').value = currentLetter; // Set the input field value to the current letter
   }
   
-});
+};
 
 
 // Event listener for the Enter key to submit the guess (with Physical Keyboard)
