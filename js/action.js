@@ -26,6 +26,7 @@ document.addEventListener('keydown', function(event) {
 
 // Submit the guess when the button is clicked (for mobile users)
 function submitGuess() {
+  document.getElementById('guess').value = currentLetter
   if (currentLetter !== '') {
     checkGuess(); // Submit the guess logic
   }
