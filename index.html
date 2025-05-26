@@ -44,7 +44,7 @@
         <p id="word"></p>
       </div>
       <p>Enter your Guess and press Enter Key to Submit</p>
-      <form onsubmit="submitGuess(event)">
+      <form onsubmit="submitGuess(event)" style="display: flex; flex-direction: column; align-items: center;">
         <input type="text" id="guess" autocomplete="off" maxlength="1" disabled oninput="handleOnchange(this.value)" />
         <button id="submitBtn">Submit</button>
       </form>
