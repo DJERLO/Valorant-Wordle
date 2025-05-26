@@ -92,6 +92,12 @@ const showGamePanel = () => {
   game.style.display = 'flex';
   document.getElementById('clue').innerText = agents.find(agent => agent.agent.toUpperCase() === wordToGuess).clues[3 - attempts]
   gameEnded = false;
+
+  // Enable the input field for guessing letters (For mobile devices)
+  const input = document.getElementById("guess");
+  input.disabled = false;
+  input.focus(); // Show keyboard on phones
+
 }
 
 const hideGamePanel = () => {
@@ -182,28 +188,42 @@ function checkGuess() {
   
   // Check if the input is not blank
   if (guess !== '') {
+    // Check if the input is letter that already exists in the guessedLetters array
     if (guessedLetters.includes(guess)) {
       isLetterPicked.innerText = `You've already selected the letter '${guess}'`;
-    } else {
+    } 
+    
+    // Check if the input is letter that not exists in the guessedLetters array
+    if (!guessedLetters.includes(guess)) {
       guessedLetters.push(guess); // Add the guessed letter to the guessedLetters array
       displayWord(); // Display the updated word
 
+      // If the guessed letter is wrong, decrement attempts and show a clue
       if (!wordToGuess.includes(guess) && attempts > 0) {
         attempts--; // Decrement attempts on a wrong guess
         document.getElementById('clue').innerText = agents.find(agent => agent.agent.toUpperCase() === wordToGuess).clues[3 - attempts]; // Display a clue
         document.getElementById('attempts').innerText = `Attempts Left: ${attempts}`; // Display remaining attempts
+        
+        // If attempts reach 0, show game over screen and the correct word and the character icon
         if (attempts === 0) {
           showGameOver();
           hideGamePanel();
           document.getElementById('result-game-over').innerText = `Game Over!\nThe agent we were looking for is: ${wordToGuess}`;
-        } else {
+        }
+        // Play Wrong Sound Effect (If the letter is not in the word of guess)
+        else {
           playWrong();
         }
-      } else if (checkWordGuess()) {
+
+      } 
+      
+      if (checkWordGuess()) {
         hideGamePanel();
         showVictory();
         document.getElementById('result').innerText = 'You guessed the right agent! Well done!';
-      } else {
+      }
+      // Play Correct Sound Effect (If the letter is correct but the word is not fully guessed yet)  
+      else {
         playCorrect();
       }
 
