@@ -44,7 +44,7 @@
         <p id="word"></p>
       </div>
       <p>Enter your Guess and press Enter Key to Submit</p>
-      <input type="text" id="guess" autocomplete="off" maxlength="1" disabled onchange="handleOnchange()"/>
+      <input type="text" id="guess" autocomplete="off" maxlength="1" disabled onchange="handleOnchange(this.value)"/>
       <button id="submitBtn" onclick="submitGuess()">Submit</button>
       <p id="attempts"></p>
       <p id="already-selected"></p>

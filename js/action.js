@@ -15,9 +15,9 @@ document.addEventListener('keydown', function(event) {
 });
 
 // Function For handling the input change event (for mobile users)
-function handleOnchange(event) {
+function handleOnchange(input) {
  
-  const pressedKey = event.key; // Get the pressed key
+  const pressedKey = input; // Get the pressed key
   // Check if the pressed key is a lowercase letter from 'a' to 'z'
   if (/^[a-z]$/.test(pressedKey) || pressedKey === '/' && !gameEnded) {
     playDecide();
